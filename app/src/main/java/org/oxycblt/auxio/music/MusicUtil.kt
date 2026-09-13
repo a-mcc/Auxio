@@ -104,8 +104,10 @@ private fun Date.resolveFineGrained(): String? {
 }
 
 fun Disc?.resolve(context: Context) =
-    this?.run { context.getString(R.string.fmt_disc_no, number) }
-        ?: context.getString(R.string.def_disc)
+    this?.run {
+        name?.let { context.getString(R.string.fmt_disc_no_subtitle, number, it) }
+            ?: context.getString(R.string.fmt_disc_no, number)
+    } ?: context.getString(R.string.def_disc)
 
 /**
  * Resolve this instance into a human-readable date range.
